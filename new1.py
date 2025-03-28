@@ -7,7 +7,7 @@ import musicLibrary
 import os
 import wikipediaapi
 import requests
-import json  # Import json for handling API response
+import json  
 
 # Initialize recognizer and TTS engine
 recognizer = sr.Recognizer()
@@ -193,7 +193,7 @@ def listen_for_typed_commands():
             print("Exiting typed command mode.")
             break
         elif command.lower() == "start":
-            print("You can now type your commands.")
+            print("You can now type your commands now .")
         else:
             result = processCommand(command)
             if result == "stop":
