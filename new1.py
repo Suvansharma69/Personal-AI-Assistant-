@@ -13,9 +13,9 @@ import json
 recognizer = sr.Recognizer()
 engine = pyttsx3.init()
 
-# Gemini API details
-GEMINI_API_KEY = "AIzaSyCjF8tEq2C2NwnEnJXfh1ECol8L6nJ3nIc"  # Replace with your actual Gemini API key
-GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=" + GEMINI_API_KEY
+# Groq API details
+GROQ_API_KEY = "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"  # Replace with your actual Groq API key
+GROQ_API_URL = "https://api.groq.com/v1/models/groq-pro:generateContent"  # Replace with the actual Groq API URL
 
 # Spotify API details
 SPOTIPY_CLIENT_ID = 'f1fe5288f8134ae38f650ad041ab2385'
@@ -47,9 +47,9 @@ def speak(text):
 
 def aiProcess(command):
     try:
-        headers = {"Content-Type": "application/json"}
+        headers = {"Content-Type": "application/json", "Authorization": f"Bearer {GROQ_API_KEY}"}
         payload = {
-            "model": "gemini-pro",  # Specify the model
+            "model": "groq-pro",  # Specify the model
             "prompt": command,  # The user command or input
             "temperature": 0.7,  # Optional: Adjust creativity (0.0 = deterministic, 1.0 = more random)
             "maxOutputTokens": 100,  # Limit the response length
@@ -57,8 +57,8 @@ def aiProcess(command):
             "topK": 40  # Optional: Adjust diversity (number of highest-probability tokens considered)
         }
 
-        # Send the request to the Gemini API
-        response = requests.post(GEMINI_API_URL, headers=headers, json=payload)
+        # Send the request to the Groq API
+        response = requests.post(GROQ_API_URL, headers=headers, json=payload)
         response.raise_for_status()  # Raise an error for bad HTTP responses
 
         # Parse the response
@@ -68,7 +68,7 @@ def aiProcess(command):
         else:
             return "Sorry, I couldn't process your request."
     except requests.exceptions.RequestException as e:
-        return f"Sorry, there was an error connecting to Gemini: {str(e)}"
+        return f"Sorry, there was an error connecting to Groq: {str(e)}"
     except Exception as e:
         return f"An unexpected error occurred: {str(e)}"
 
@@ -193,7 +193,7 @@ def listen_for_typed_commands():
             print("Exiting typed command mode.")
             break
         elif command.lower() == "start":
-            print("You can now type your commands now .")
+            print("You can now type your commands now.")
         else:
             result = processCommand(command)
             if result == "stop":
