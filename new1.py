@@ -71,7 +71,7 @@ def aiProcess(command):
         return f"Sorry, there was an error connecting to Groq: {str(e)}"
     except Exception as e:
         return f"An unexpected error occurred: {str(e)}"
-
+#for spotify 
 def play_spotify_song(song_name):
     try:
         devices = sp.devices()
@@ -102,7 +102,7 @@ def stop_spotify_playback():
         speak("Stopping playback on Spotify.")
     except Exception as e:
         speak(f"Error stopping Spotify playback: {e}")
-
+#various commands 
 def processCommand(c):
     try:
         c_lower = c.lower()
