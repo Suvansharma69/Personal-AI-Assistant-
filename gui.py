@@ -7,7 +7,7 @@
 import tkinter as tk
 from tkinter import ttk, scrolledtext
 import threading
-from new1 import speak, listen_for_commands, listen_for_typed_commands, processCommand
+from new1 import speak, listen_for_commands, listen_for_typed_commands, processCommand, set_gui_callback
 
 class VoiceAssistantGUI:
     def __init__(self, root):
@@ -15,6 +15,9 @@ class VoiceAssistantGUI:
         self.root.title("Voice Assistant")
         self.root.geometry("800x600")
         self.root.configure(bg="#f0f0f0")
+        
+        # Register GUI callback
+        set_gui_callback(self.append_to_display)
         
         # Configure style
         style = ttk.Style()
@@ -93,15 +96,8 @@ class VoiceAssistantGUI:
         listen_for_commands()
 
     def start_typed_command(self):
-        if not self.type_thread or not self.type_thread.is_alive():
-            self.type_thread = threading.Thread(target=self.run_typed_command)
-            self.type_thread.daemon = True
-            self.type_thread.start()
-            self.update_status("Ready for typed commands")
-            self.append_to_display("Type your commands below and press Enter")
-
-    def run_typed_command(self):
-        listen_for_typed_commands()
+        self.update_status("Ready for typed commands")
+        self.append_to_display("Type your commands below and press Enter")
 
     def process_typed_command(self, event):
         command = self.command_entry.get()
