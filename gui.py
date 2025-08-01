@@ -8,19 +8,6 @@ A sophisticated voice assistant with Gemini AI, platform controls, and improved 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 import threading
 import speech_recognition as sr
 import pyttsx3
